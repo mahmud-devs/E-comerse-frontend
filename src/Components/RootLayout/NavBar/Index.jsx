@@ -32,7 +32,6 @@ const NavBar = () => {
   const HandleMenu = () => {
     setallMenu(!allMenu);
   };
-  console.log(allMenu);
 
   return (
     <div className="border-b-[1.5px] border-[rgba(0,0,0,0.3)] pb-3 pt-10">
