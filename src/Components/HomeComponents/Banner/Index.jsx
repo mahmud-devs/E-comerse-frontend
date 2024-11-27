@@ -24,7 +24,12 @@ const Banner = () => {
           padding: "10px",
         }}
       >
-        <ul style={{ margin: "0px", display:"flex" }}> {dots} </ul>
+        <ul
+          style={{ margin: "0px", display: "flex", justifyContent: "center" }}
+        >
+          {" "}
+          {dots}{" "}
+        </ul>
       </div>
     ),
     customPaging: (i) =>
@@ -63,7 +68,7 @@ const Banner = () => {
       <div className="container">
         <div className="flex items-start justify-between">
           {/* ========================================================= */}
-          <div className="w-[20%]  pt-10">
+          <div className="w-[20%] pt-10">
             <ul>
               {category?.map((item) => (
                 <div className="flex cursor-pointer items-center justify-between rounded-s-md py-2 pe-11 text-textBlack_000000 transition-all hover:bg-[rgba(0,0,0,0.6)] hover:pl-6 hover:text-white_FAFAFA">
