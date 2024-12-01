@@ -1,62 +1,28 @@
 import React from "react";
-import Heading from "../../CommonComponents/Heading";
-import Timer from "../../CommonComponents/Timer";
 import ProductCard from "../../CommonComponents/ProductCard";
-import Slider from "react-slick";
+
+import ProductCommonLayout from "../../CommonComponents/ProductCommonLayout";
+import ProductSkeleton from "../../../Helpers/ProductSkeleton";
 
 const FlashSale = () => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-  };
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{
-          ...style,
-          display: "block",
-          background: "red",
-          position: "absolute",
-          left: "o",
-          top: "0",
-        }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{ ...style, display: "block", background: "green" }}
-        onClick={onClick}
-      />
-    );
-  }
-
   return (
     <div className="mb-[500px] mt-[140px]">
       <div className="container">
-        <div className="flex items-end gap-x-[87px]">
-          <Heading title={"Today’s"} description={"Flash Sales"} />
-          <Timer />
+        <div>
+          <ProductCommonLayout
+            ProductCard={ProductCard}
+            timeStamp={true}
+            timeofOffer={3}
+            isArrowsTrue={true}
+            heading="Today's"
+            description="Flash Sales"
+          />
         </div>
-        <div className="slider-container mt-10">
-          <Slider {...settings}>
-            {[...new Array(10)].map((_, index) => (
-              <ProductCard />
-            ))}
-          </Slider>
+
+        <div className="mt-16 flex justify-center border-b-[1.5px] border-[rgba(0,0,0,0.3)] ">
+          <button className="rounded hover:opacity-70 transition-all bg-red_DB4444 px-12 py-4 font-popins text-[16px] mb-16 me-4 font-medium text-white_FAFAFA">
+            View All Products
+          </button>
         </div>
       </div>
     </div>

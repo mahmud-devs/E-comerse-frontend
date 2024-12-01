@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IoEllipsisVerticalSharp } from "react-icons/io5";
 
-const Timer = () => {
-  const [time, settime] = useState(4 * 24 * 60 * 60 * 1000);
+const Timer = ({ timeofOffer }) => {
+  const [time, settime] = useState(timeofOffer * 24 * 60 * 60 * 1000 || 0);
   //   useEffect(() => {
   //     setTimeout(() => {
   //       settime(time - 1000);
@@ -14,10 +14,10 @@ const Timer = () => {
       new URL("../../CountDownWorker.js", import.meta.url),
     );
     worker.postMessage(time);
-    worker.onmessage = (event)=>{
-        settime(event.data)
-    }
-  },[]);
+    worker.onmessage = (event) => {
+      settime(event.data);
+    };
+  }, []);
 
   //   ================ formate the countdown date ============
   const formateDate = (milisecond) => {
