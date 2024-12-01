@@ -93,35 +93,35 @@ const NavBar = () => {
             {/* ============== dropdown menu========================= */}
             {allMenu && (
               <div className="absolute right-0 top-10 z-30 flex w-[250px] flex-col rounded bg-[rgba(0,0,0,0.25)] pb-3 pt-4 backdrop-blur-2xl">
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA hover:py-3">
+                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
                   <span className="text-2xl">
                     <FaRegUser />
                   </span>
                   <h3 className="text-4 font-popins">Manage My Account</h3>
                 </div>
 
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA hover:py-3">
+                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
                   <span className="text-2xl">
                     <FiShoppingBag />
                   </span>
                   <h3 className="text-4 font-popins">My Order</h3>
                 </div>
 
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA hover:py-3">
+                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
                   <span className="text-2xl">
                     <ImCancelCircle />
                   </span>
                   <h3 className="text-4 font-popins">My Cancellations</h3>
                 </div>
 
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA hover:py-3">
+                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
                   <span className="text-2xl">
                     <FaRegStar />
                   </span>
                   <h3 className="text-4 font-popins">My Reviews</h3>
                 </div>
 
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA hover:py-3">
+                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
                   <span className="text-2xl">
                     <RiLogoutBoxLine />
                   </span>

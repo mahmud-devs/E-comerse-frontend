@@ -27,8 +27,7 @@ const Banner = () => {
         <ul
           style={{ margin: "0px", display: "flex", justifyContent: "center" }}
         >
-          {" "}
-          {dots}{" "}
+          {dots}
         </ul>
       </div>
     ),
@@ -71,7 +70,7 @@ const Banner = () => {
           <div className="w-[20%] pt-10">
             <ul>
               {category?.map((item) => (
-                <div className="flex cursor-pointer items-center justify-between rounded-s-md py-2 pe-11 text-textBlack_000000 transition-all hover:bg-[rgba(0,0,0,0.6)] hover:pl-6 hover:text-white_FAFAFA">
+                <div className="flex cursor-pointer items-center duration-300 justify-between rounded-s-md py-2 pe-11 text-textBlack_000000 transition-all hover:bg-[rgba(0,0,0,0.6)] hover:pl-6 hover:text-white_FAFAFA">
                   <li className="font-popins text-[16px] font-normal">
                     {item.category}
                   </li>

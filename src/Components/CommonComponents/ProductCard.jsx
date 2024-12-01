@@ -28,7 +28,7 @@ const ProductCard = () => {
               className="h-full w-full object-cover"
             />
           </div>
-          <div className="overlay absolute bottom-0 left-0 flex h-10 w-full items-center justify-center rounded-b bg-textBlack_000000 py-2 font-popins text-[16px] font-normal text-white_FFFFFF opacity-0 transition-all group-hover:opacity-100">
+          <div className="overlay duration-300 absolute bottom-0 left-0 flex h-10 w-full items-center justify-center rounded-b bg-textBlack_000000 py-2 font-popins text-[16px] font-normal text-white_FFFFFF opacity-0 transition-all group-hover:opacity-100">
             Add To Cart
           </div>
         </div>

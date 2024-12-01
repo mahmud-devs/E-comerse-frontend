@@ -13,13 +13,14 @@ const ProductCommonLayout = ({
   isArrowsTrue = false,
   heading = "today's",
   description = "flash sale",
+  partialItemShow = 5,
 }) => {
   const sliderRef = useRef(null);
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: partialItemShow,
     slidesToScroll: 1,
 
     autoplay: true,
