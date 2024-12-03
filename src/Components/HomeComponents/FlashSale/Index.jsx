@@ -14,9 +14,10 @@ const FlashSale = () => {
             timeStamp={true}
             timeofOffer={3}
             isArrowsTrue={true}
-            heading="Today's"
+            heading={"Today's"}
             partialItemShow={5}
-            description="Flash Sales"
+            componentData={[...new Array(10)]}
+            description={"Flash Sales"}
           />
         </div>
 
