@@ -1,7 +1,7 @@
 import React from "react";
 
 const CategoryComponent = ({ itemData }) => {
-  console.log(itemData);
+  
 
   return (
     <div className="flex h-[145px] w-[170px] cursor-pointer items-center justify-center rounded border-[2px] border-[rgba(0,0,0,0.3)] text-textBlack_000000 transition-all duration-300 hover:border-red_DB4444 hover:bg-red_DB4444 hover:text-white_FAFAFA">

@@ -15,6 +15,7 @@ const ProductCommonLayout = ({
   description = "flash sale",
   partialItemShow = 5,
   componentData = [],
+  isLoading = false,
 }) => {
   const sliderRef = useRef(null);
   const settings = {
@@ -63,13 +64,27 @@ const ProductCommonLayout = ({
         </div>
       )}
 
-      <div className="slider-container mt-5">
-        <Slider ref={sliderRef} {...settings}>
-          {componentData?.map((item, index) => (
-            <ProductCard itemData={item ? item : {}} />
-          ))}
-        </Slider>
-      </div>
+      {isLoading ? (
+        <div className="slider-container mt-5">
+          <Slider ref={sliderRef} {...settings}>
+            {[...new Array(10)]?.map((_, index) => (
+              <div key={index}>
+                <ProductSkeleton />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      ) : (
+        <div className="slider-container mt-5">
+          <Slider ref={sliderRef} {...settings}>
+            {componentData?.map((item, index) => (
+              <div key={item.key}>
+                <ProductCard itemData={item ? item : {}} />
+              </div>
+            ))}
+          </Slider>
+        </div>
+      )}
     </div>
   );
 };
