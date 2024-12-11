@@ -4,11 +4,14 @@ import { MdArrowForwardIos } from "react-icons/md";
 import "slick-carousel/slick/slick.css";
 import Slider from "react-slick";
 import BannerImg from "../../../assets/Banner/Banner.jpg";
+import { useGetBannerQuery } from "../../../Features/Api/BannerApi";
+import BannerSkeleton from "../../../Helpers/BannerSkeleton";
+
 const Banner = () => {
   const [currentSlide, setcurrentSlide] = useState(0);
   const settings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -62,6 +65,9 @@ const Banner = () => {
       setcurrentSlide(currentSlide);
     },
   };
+
+  const { data, error, isLoading } = useGetBannerQuery();
+
   return (
     <div>
       <div className="container">
@@ -70,7 +76,7 @@ const Banner = () => {
           <div className="w-[20%] pt-10">
             <ul>
               {category?.map((item) => (
-                <div className="flex cursor-pointer items-center duration-300 justify-between rounded-s-md py-2 pe-11 text-textBlack_000000 transition-all hover:bg-[rgba(0,0,0,0.6)] hover:pl-6 hover:text-white_FAFAFA">
+                <div className="flex cursor-pointer items-center justify-between rounded-s-md py-2 pe-11 text-textBlack_000000 transition-all duration-300 hover:bg-[rgba(0,0,0,0.6)] hover:pl-6 hover:text-white_FAFAFA">
                   <li className="font-popins text-[16px] font-normal">
                     {item.category}
                   </li>
@@ -85,19 +91,28 @@ const Banner = () => {
           </div>
           {/* ========================================================== */}
           <div className="w-[80%] border-s-[1.5px] border-[rgba(0,0,0,0.3)] ps-11 pt-10">
-            <div className="slider-container">
-              <Slider {...settings}>
-                {[...new Array(10)].map((_, index) => (
-                  <div key={index}>
-                    <img
-                      src={BannerImg}
-                      alt={BannerImg}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ))}
-              </Slider>
-            </div>
+            {data ? (
+              isLoading ? (
+                <BannerSkeleton />
+              ) : (
+                <div className="slider-container">
+                  <Slider {...settings}>
+                    {data?.data.map((item, index) => (
+                      <div key={index}>
+                        {console.log(item.image)}
+                        <img
+                          src={item.image}
+                          alt={BannerImg}
+                          className="h-[400px] w-full object-cover"
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+              )
+            ) : (
+              <BannerSkeleton />
+            )}
           </div>
         </div>
       </div>

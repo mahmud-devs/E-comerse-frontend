@@ -2,8 +2,6 @@ import React from "react";
 import { FaRegEye, FaRegHeart, FaStar } from "react-icons/fa";
 import product1 from "../../assets/Productcard/Product1.png";
 const ProductCard = ({ itemData }) => {
-  console.log(itemData);
-
   return (
     <div>
       <div className="w-[250px]">
@@ -51,7 +49,10 @@ const ProductCard = ({ itemData }) => {
           </div>
           <div className="mt-2 flex items-center">
             {[...new Array(5)].map((_, index) => (
-              <span className="mr-1 inline-block text-lg text-yellow-500">
+              <span
+                key={index}
+                className="mr-1 inline-block text-lg text-yellow-500"
+              >
                 <FaStar />
               </span>
             ))}
