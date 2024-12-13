@@ -16,6 +16,8 @@ const ProductCommonLayout = ({
   partialItemShow = 5,
   componentData = [],
   isLoading = false,
+  viewAllBtn = false,
+  viewAllBtnName = "View All",
 }) => {
   const sliderRef = useRef(null);
   const settings = {
@@ -29,40 +31,48 @@ const ProductCommonLayout = ({
   };
 
   const next = () => {
-    sliderRef.current.slickPrev();
+    sliderRef.current.slickNext();
   };
 
   const prev = () => {
-    sliderRef.current.slickNext();
+    sliderRef.current.slickPrev();
   };
   return (
     <div>
-      <div className="flex items-end gap-x-[87px]">
-        <Heading title={heading} description={description} />
+      <div className="mb-[40px] flex items-end justify-between">
+        <div className="flex items-end gap-x-[87px]">
+          <Heading title={heading} description={description} />
 
-        {timeStamp && <Timer timeofOffer={timeofOffer} />}
-      </div>
-
-      {isArrowsTrue && (
-        <div className="mt-5 flex items-center justify-end gap-x-4">
-          <h1
-            onClick={next}
-            className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-white_F5F5F5 transition hover:bg-black_363738 hover:text-white_FFFFFF"
-          >
-            <span className="text-xl">
-              <IoMdArrowBack />
-            </span>
-          </h1>
-          <h1
-            onClick={prev}
-            className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-white_F5F5F5 transition hover:bg-black_363738 hover:text-white_FFFFFF"
-          >
-            <span className="text-xl">
-              <IoArrowForward />
-            </span>
-          </h1>
+          {timeStamp && <Timer timeofOffer={timeofOffer} />}
         </div>
-      )}
+
+        {isArrowsTrue && (
+          <div className="mt-5 flex items-center justify-end gap-x-4">
+            <h1
+              onClick={next}
+              className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-white_F5F5F5 transition hover:bg-black_363738 hover:text-white_FFFFFF"
+            >
+              <span className="text-xl">
+                <IoMdArrowBack />
+              </span>
+            </h1>
+            <h1
+              onClick={prev}
+              className="flex h-[46px] w-[46px] cursor-pointer items-center justify-center rounded-full bg-white_F5F5F5 transition hover:bg-black_363738 hover:text-white_FFFFFF"
+            >
+              <span className="text-xl">
+                <IoArrowForward />
+              </span>
+            </h1>
+          </div>
+        )}
+
+        {viewAllBtn && (
+          <button className="me-4 rounded bg-red_DB4444 px-12 py-4 font-popins text-[16px] font-medium text-white_FAFAFA transition-all hover:opacity-70">
+            {viewAllBtnName}
+          </button>
+        )}
+      </div>
 
       {isLoading ? (
         <div className="slider-container mt-5">

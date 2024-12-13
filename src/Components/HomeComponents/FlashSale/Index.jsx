@@ -4,12 +4,14 @@ import ProductCard from "../../CommonComponents/ProductCard";
 import ProductCommonLayout from "../../CommonComponents/ProductCommonLayout";
 import ProductSkeleton from "../../../Helpers/ProductSkeleton";
 
-import { useGetAllProductQuery } from "../../../Features/Api/ProductApi";
+import { useGetFlashSaleQuery } from "../../../Features/Api/ExcluciveApi";
 
 const FlashSale = () => {
-  const { data, error, isLoading } = useGetAllProductQuery();
+  const { data, error, isLoading } = useGetFlashSaleQuery();
 
- 
+  const allFlashSale = data?.data?.map((item) => {
+    return item.product;
+  });
 
   return (
     <div className="mb-[80px] mt-[140px]">
@@ -22,7 +24,7 @@ const FlashSale = () => {
             isArrowsTrue={true}
             heading={"Today's"}
             partialItemShow={5}
-            componentData={data?.products}
+            componentData={allFlashSale}
             description={"Flash Sales"}
             isLoading={isLoading}
           />

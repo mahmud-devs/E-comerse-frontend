@@ -4,6 +4,7 @@ import Header from "../../Components/RootLayout/Header/Index";
 import Banner from "../../Components/HomeComponents/Banner/Index";
 import FlashSale from "../../Components/HomeComponents/FlashSale/Index";
 import Category from "../../Components/HomeComponents/Category";
+import BestSelling from "../../Components/HomeComponents/BestSelling";
 const HomePage = () => {
   return (
     <div>
@@ -12,6 +13,7 @@ const HomePage = () => {
       <Banner />
       <FlashSale />
       <Category/>
+      <BestSelling/>
     </div>
   );
 };

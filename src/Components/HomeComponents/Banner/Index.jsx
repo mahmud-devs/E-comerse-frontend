@@ -4,7 +4,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import "slick-carousel/slick/slick.css";
 import Slider from "react-slick";
 import BannerImg from "../../../assets/Banner/Banner.jpg";
-import { useGetBannerQuery } from "../../../Features/Api/BannerApi";
+import { useGetBannerQuery } from "../../../Features/Api/ExcluciveApi";
 import BannerSkeleton from "../../../Helpers/BannerSkeleton";
 
 const Banner = () => {
@@ -99,7 +99,6 @@ const Banner = () => {
                   <Slider {...settings}>
                     {data?.data.map((item, index) => (
                       <div key={index}>
-                        {console.log(item.image)}
                         <img
                           src={item.image}
                           alt={BannerImg}

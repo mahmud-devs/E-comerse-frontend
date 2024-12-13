@@ -5,11 +5,17 @@ const ProductCard = ({ itemData }) => {
   return (
     <div>
       <div className="w-[250px]">
-        <div className="group relative w-full cursor-pointer rounded bg-white_F5F5F5 px-3 pb-9 pt-3">
-          <div className="flex items-start justify-between">
-            <span className="inline-block rounded bg-red_DB4444 px-3 py-1 font-popins text-[14px] text-white_FFFFFF">
-              -{itemData ? itemData.discountPercentage : "00"}%
-            </span>
+        <div className="group relative w-full cursor-pointer rounded bg-white_F5F5F5 px-8 pb-9 pt-10 ">
+          <div className="flex items-start justify-between absolute top-0 left-0 w-full p-3">
+            {itemData?.discount === 0 ? (
+              <span className="inline-block rounded bg-transparent px-3 py-1 font-popins text-[14px] text-transparent">
+                d
+              </span>
+            ) : (
+              <span className="inline-block rounded bg-red_DB4444 px-3 py-1 font-popins text-[14px] text-white_FFFFFF">
+                -{itemData ? itemData.discount : "00"}%
+              </span>
+            )}
             <div className="relative">
               <div className="absolute right-0 top-0 flex flex-col gap-y-2">
                 <span className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-white_FFFFFF text-lg transition-all hover:bg-red_DB4444 hover:text-white_FFFFFF">
@@ -23,7 +29,7 @@ const ProductCard = ({ itemData }) => {
           </div>
           <div className="h-[226px] w-full">
             <img
-              src={itemData ? itemData.thumbnail : product1}
+              src={itemData ? itemData.image[0] : product1}
               alt={itemData ? itemData.thumbnail : product1}
               className="h-full w-full object-cover"
             />
@@ -37,7 +43,7 @@ const ProductCard = ({ itemData }) => {
 
         <div className="mt-4">
           <span className="inline-block font-popins text-[16px] font-medium text-textBlack_000000">
-            {itemData ? itemData.title : "Name missing"}
+            {itemData ? itemData.name : "Name missing"}
           </span>
           <div className="mt-2 flex items-center gap-x-3">
             <span className="font-popins text-[16px] font-medium text-red_DB4444">
@@ -57,7 +63,7 @@ const ProductCard = ({ itemData }) => {
               </span>
             ))}
             <span className="ms-2 inline-block font-popins text-sm font-semibold text-textBlack_000000 opacity-50">
-              (88)
+              {`(${itemData?.review?.length})`}
             </span>
           </div>
         </div>
