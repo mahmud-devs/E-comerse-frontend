@@ -77,7 +77,6 @@ import { useGetCategoryQuery } from "../../../Features/Api/ExcluciveApi";
 const Category = () => {
   const { data, isLoading, error } = useGetCategoryQuery();
 
-  
   return (
     <div className="mb-[70px] mt-[150px]">
       <div className="container">
@@ -89,6 +88,8 @@ const Category = () => {
             partialItemShow={6}
             componentData={data?.data}
             description={"Browse By Category"}
+            isLoading={isLoading}
+            categorySkeleton={true}
           />
         </div>
       </div>

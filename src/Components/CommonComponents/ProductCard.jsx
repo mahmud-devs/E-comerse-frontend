@@ -11,7 +11,7 @@ const ProductCard = ({ itemData }) => {
 
   return (
     <div>
-      <div className="w-[250px]">
+      <div className="w-[250px] mb-[60px]">
         <div className="group relative w-full cursor-pointer rounded bg-white_F5F5F5 px-8 pb-9 pt-10">
           <div className="absolute left-0 top-0 flex w-full items-start justify-between p-3">
             {itemData?.discount === 0 ? (

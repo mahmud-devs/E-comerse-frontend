@@ -6,6 +6,7 @@ import Slider from "react-slick";
 import ProductSkeleton from "../../Helpers/ProductSkeleton";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoArrowForward } from "react-icons/io5";
+import CategorySkeleton from "../../Helpers/CategorySkeleton";
 const ProductCommonLayout = ({
   ProductCard = () => <ProductSkeleton />,
   timeStamp = false,
@@ -18,6 +19,8 @@ const ProductCommonLayout = ({
   isLoading = false,
   viewAllBtn = false,
   viewAllBtnName = "View All",
+  rows = 1,
+  categorySkeleton = false,
 }) => {
   const sliderRef = useRef(null);
   const settings = {
@@ -26,7 +29,7 @@ const ProductCommonLayout = ({
     speed: 500,
     slidesToShow: partialItemShow,
     slidesToScroll: 1,
-
+    rows: rows,
     autoplay: false,
   };
 
@@ -79,7 +82,7 @@ const ProductCommonLayout = ({
           <Slider ref={sliderRef} {...settings}>
             {[...new Array(10)]?.map((_, index) => (
               <div key={index}>
-                <ProductSkeleton />
+                {categorySkeleton ? <CategorySkeleton />: <ProductSkeleton />  }
               </div>
             ))}
           </Slider>

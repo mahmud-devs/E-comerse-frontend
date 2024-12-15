@@ -12,16 +12,16 @@ const BestSelling = () => {
   });
 
   return (
-    <div className="mb-[300px]">
+    <div className="mb-[80px]">
       <div className="container">
         <ProductCommonLayout
           ProductCard={ProductCard}
           viewAllBtn={true}
           viewAllBtnName={"View All"}
-          heading={"Categories"}
+          heading={"This Month"}
           partialItemShow={5}
           componentData={allBestSelling}
-          description={"Browse By Category"}
+          description={"Best Selling Products"}
           isLoading={isLoading}
         />
       </div>

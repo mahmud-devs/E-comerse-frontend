@@ -69,7 +69,23 @@
     -moz-transition: all linear 0.2s;
     -ms-transition: all linear 0.2s;
     -o-transition: all linear 0.2s;
-}
+  }
+  .ExperienceImg img {
+    z-index: 99;
+  }
+  .ExperienceImg::before {
+    position: absolute;
+    content: "";
+    border-radius: 50%;
+    width: 170px;
+    height: 140px;
+    background-color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50% , -40%);
+    z-index: 1;
+    box-shadow: 0px 0px 1000px 140px rgba(217, 217, 217, 0.47);
+  }
 }
 
 :root {

@@ -4,7 +4,7 @@ const ProductSkeleton = () => {
   return (
     <div>
       <div>
-        <div className="w-[250px]">
+        <div className="mb-[60px] w-[250px]">
           <div className="group relative w-full animate-pulse cursor-pointer rounded bg-white_F5F5F5 px-3 pb-5 pt-3">
             <div className="flex items-start justify-between">
               <span className="inline-block h-6 w-16 rounded bg-gray-500 px-3 py-1 font-popins text-[14px] text-white_FFFFFF"></span>
