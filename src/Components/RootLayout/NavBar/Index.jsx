@@ -21,7 +21,7 @@ const NavBar = () => {
     },
     {
       id: 3,
-      item: "About",
+      item: "product",
     },
     {
       id: 4,
@@ -50,10 +50,10 @@ const NavBar = () => {
                   to={`/${nav.item}`}
                   className={({ isActive, isPending }) =>
                     isPending
-                      ? "font-popins text-[16px] font-normal text-greenButton_00FF66"
+                      ? "font-popins text-[16px] font-normal capitalize text-greenButton_00FF66"
                       : isActive
-                        ? "font-popins text-[16px] font-normal text-red_DB4444"
-                        : "font-popins text-[16px] font-normal text-black"
+                        ? "font-popins text-[16px] font-normal capitalize text-red_DB4444"
+                        : "font-popins text-[16px] font-normal capitalize text-black"
                   }
                 >
                   {nav.item}

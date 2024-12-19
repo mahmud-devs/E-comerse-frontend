@@ -25,7 +25,6 @@ const ProductRight = () => {
     setpagePerShow(event.target.value);
   };
 
-  console.log(page);
 
   return (
     <div className="w-[82%]">

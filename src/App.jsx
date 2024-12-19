@@ -9,6 +9,7 @@ import {
 import HomePage from "./pages/Home/Index";
 import RootMainLayout from "./Components/RootLayout/RootMainLayout";
 import ProductPage from "./pages/ProductPage/Index";
+import ProductDetail from "./pages/ProductDetails/Index";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ const router = createBrowserRouter(
         <Route index element={<HomePage />} />{" "}
         <Route path="/product/item/me" element={<ProductPage />} />
         <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
       </Route>
     </Route>,
   ),
