@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import { useGetAllProductQuery } from "../../Features/Api/ExcluciveApi";
+import {
+  useGetAllProductQuery,
+  useGetSingleCategoryQuery,
+} from "../../Features/Api/ExcluciveApi";
 import ProductCard from "../CommonComponents/ProductCard";
 import { FaThList } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
 
-const ProductRight = () => {
+const ProductRight = ({ categoryWiseData }) => {
   const { data, isLodaing, error } = useGetAllProductQuery();
+  const getCategoryData = useGetSingleCategoryQuery(categoryWiseData);
+  const categoryDataProduct = getCategoryData?.data?.data?.product;
+
   const [listStyle, setlistStyle] = useState(false);
 
   const [page, setpage] = useState(1);
   const [pagePerShow, setpagePerShow] = useState(8);
   let totalPage = data?.data?.length / pagePerShow;
+  let totalPageByCategory = categoryDataProduct?.length / pagePerShow;
+  // let totalPage = {categoryDataProduct ? (categoryDataProduct /pagePerShow) : (data?.data?.length / pagePerShow)};
 
   const handleChange = () => {
     setlistStyle(!listStyle);
@@ -24,7 +32,6 @@ const ProductRight = () => {
   const handleDropdown = (event) => {
     setpagePerShow(event.target.value);
   };
-
 
   return (
     <div className="w-[82%]">
@@ -71,17 +78,33 @@ const ProductRight = () => {
       </div>
       {/* ============== product ================= */}
 
-      <div
-        className={
-          listStyle
-            ? "flex flex-col items-center ps-8"
-            : "flex flex-wrap justify-between ps-8"
-        }
-      >
-        {data?.data?.slice(page * 8 - 8, page * pagePerShow).map((item) => (
-          <ProductCard itemData={item ? item : {}} listStyle={listStyle} />
-        ))}
-      </div>
+      {categoryDataProduct ? (
+        <div
+          className={
+            listStyle
+              ? "flex flex-col items-center ps-8"
+              : "flex flex-wrap justify-between ps-8"
+          }
+        >
+          {categoryDataProduct
+            ?.slice(page * 8 - 8, page * pagePerShow)
+            .map((item) => (
+              <ProductCard itemData={item ? item : {}} listStyle={listStyle} />
+            ))}
+        </div>
+      ) : (
+        <div
+          className={
+            listStyle
+              ? "flex flex-col items-center ps-8"
+              : "flex flex-wrap justify-between ps-8"
+          }
+        >
+          {data?.data?.slice(page * 8 - 8, page * pagePerShow).map((item) => (
+            <ProductCard itemData={item ? item : {}} listStyle={listStyle} />
+          ))}
+        </div>
+      )}
 
       {/* =============== ====================== */}
 
@@ -96,21 +119,39 @@ const ProductRight = () => {
               Previous
             </span>
           </li>
-          {[...new Array(Math.ceil(totalPage) || 8)].map((_, index) => (
-            <li>
-              <span
-                href="#"
-                className={
-                  index + 1 === page
-                    ? "border-redDB4444 flex h-10 cursor-pointer items-center justify-center border bg-red_DB4444 px-4 leading-tight text-white_FFFFFF"
-                    : "flex h-10 cursor-pointer items-center justify-center border border-gray-300 bg-white px-4 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700"
-                }
-                onClick={() => handlePerItem(index + 1)}
-              >
-                {index + 1}
-              </span>
-            </li>
-          ))}
+          {categoryDataProduct
+            ? [...new Array(Math.ceil(totalPageByCategory) || 1)].map(
+                (_, index) => (
+                  <li>
+                    <span
+                      href="#"
+                      className={
+                        index + 1 === page
+                          ? "border-redDB4444 flex h-10 cursor-pointer items-center justify-center border bg-red_DB4444 px-4 leading-tight text-white_FFFFFF"
+                          : "flex h-10 cursor-pointer items-center justify-center border border-gray-300 bg-white px-4 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                      }
+                      onClick={() => handlePerItem(index + 1)}
+                    >
+                      {index + 1}
+                    </span>
+                  </li>
+                ),
+              )
+            : [...new Array(Math.ceil(totalPage) || 8)].map((_, index) => (
+                <li>
+                  <span
+                    href="#"
+                    className={
+                      index + 1 === page
+                        ? "border-redDB4444 flex h-10 cursor-pointer items-center justify-center border bg-red_DB4444 px-4 leading-tight text-white_FFFFFF"
+                        : "flex h-10 cursor-pointer items-center justify-center border border-gray-300 bg-white px-4 leading-tight text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                    }
+                    onClick={() => handlePerItem(index + 1)}
+                  >
+                    {index + 1}
+                  </span>
+                </li>
+              ))}
 
           <li>
             <span
