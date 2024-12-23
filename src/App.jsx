@@ -10,15 +10,18 @@ import HomePage from "./pages/Home/Index";
 import RootMainLayout from "./Components/RootLayout/RootMainLayout";
 import ProductPage from "./pages/ProductPage/Index";
 import ProductDetail from "./pages/ProductDetails/Index";
+import Login from "./pages/Auth/Login/Login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/" element={<RootMainLayout />}>
-        <Route index element={<HomePage />} />{" "}
+        <Route index element={<HomePage />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/product/item/me" element={<ProductPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/login" element={<Login />} />
       </Route>
     </Route>,
   ),

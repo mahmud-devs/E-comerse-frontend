@@ -13,6 +13,9 @@ import ProductItemInfo from "../../Components/ProductDetailComponents/ProductIte
 import ProductCommonLayout from "../../Components/CommonComponents/ProductCommonLayout";
 import ProductCard from "../../Components/CommonComponents/ProductCard";
 import Heading from "../../Components/CommonComponents/Heading";
+import CategorySkeleton from "../../Helpers/CategorySkeleton";
+import ProductSkeleton from "../../Helpers/ProductSkeleton";
+import ProductDetailSkeleton from "../../Helpers/ProductDetailSkeleton";
 const ProductDetail = () => {
   const params = useParams();
   const settings = {
@@ -36,26 +39,45 @@ const ProductDetail = () => {
     <div className="my-20">
       <div className="container">
         <BreadCrum />
-        <div className="flex items-start">
-          <div className="w-[60%]">
-            <ImageGallery image={data?.data?.image} />
+        {/* ================================== */}
+        {isLoading ? (
+          <ProductDetailSkeleton />
+        ) : (
+          <div className="flex items-start">
+            <div className="w-[60%]">
+              <ImageGallery image={data?.data?.image} />
+            </div>
+            <div className="h-[400px] w-[40%] ps-[70px]">
+              <ProductItemInfo itemData={data?.data} />
+            </div>
           </div>
-          <div className="h-[400px] w-[40%] ps-[70px]">
-            <ProductItemInfo itemData={data?.data} />
-          </div>
-        </div>
+        )}
 
         {/* ================================ */}
         <div className="mb-[140px] mt-[140px]">
           <Heading title={"Related Item"} description={false} />
-          <div className="mt-10">
-            <Slider {...settings}>
-              {categoryData?.data?.data?.product?.map((item, index) => (
-                <div key={index}>
-                  <ProductCard itemData={item ? item : {}} />
-                </div>
-              ))}
-            </Slider>
+          <div>
+            {isLoading ? (
+              <div className="slider-container mt-5">
+                <Slider {...settings}>
+                  {[...new Array(10)]?.map((_, index) => (
+                    <div key={index}>
+                      <ProductSkeleton />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
+            ) : (
+              <div className="slider-container mt-10">
+                <Slider {...settings}>
+                  {categoryData?.data?.data?.product?.map((item, index) => (
+                    <div key={index}>
+                      <ProductCard itemData={item ? item : {}} />
+                    </div>
+                  ))}
+                </Slider>
+              </div>
+            )}
           </div>
         </div>
       </div>
