@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import counterReducer from "../Features/AllSlice/countSlice";
 
-import cartslice from "./AllSlice/cartSlice";
+import cartslice, { getTotalItem } from "./AllSlice/cartSlice";
 import { ProductApi } from "./Api/ProductApi";
 import { ExclusiveApi } from "./Api/ExcluciveApi";
 
@@ -18,3 +18,5 @@ export const store = configureStore({
       .concat(ProductApi.middleware)
       .concat(ExclusiveApi.middleware),
 });
+
+store.dispatch(getTotalItem());

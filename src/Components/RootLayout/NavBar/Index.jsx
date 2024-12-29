@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsCart3 } from "react-icons/bs";
 import { CiLogout } from "react-icons/ci";
 import { FaRegHeart, FaRegStar, FaRegUser } from "react-icons/fa";
@@ -6,9 +6,13 @@ import { FiSearch, FiShoppingBag } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
+import { getTotalItem } from "../../../Features/AllSlice/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const NavBar = () => {
   // ========== all states =============
+  const { caerTotalPrice, cartTotalItem } = useSelector((state) => state?.cart);
+  const dispatch = useDispatch();
   const [allMenu, setallMenu] = useState(false);
   const navItem = [
     {
@@ -32,6 +36,10 @@ const NavBar = () => {
   const HandleMenu = () => {
     setallMenu(!allMenu);
   };
+
+  useEffect(() => {
+    dispatch(getTotalItem());
+  }, [localStorage.getItem("addToCart")]);
 
   return (
     <div className="border-b-[1.5px] border-[rgba(0,0,0,0.3)] pb-3 pt-10">
@@ -80,7 +88,10 @@ const NavBar = () => {
             <span className="cursor-pointer text-2xl">
               <FaRegHeart />
             </span>
-            <span className="amount cursor-pointer text-2xl">
+            <span
+              className="amount cursor-pointer text-2xl"
+              data-cartTotalItem={cartTotalItem}
+            >
               <BsCart3 />
             </span>
             <span
