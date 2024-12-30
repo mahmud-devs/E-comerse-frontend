@@ -5,7 +5,7 @@ import { FaRegHeart, FaRegStar, FaRegUser } from "react-icons/fa";
 import { FiSearch, FiShoppingBag } from "react-icons/fi";
 import { ImCancelCircle } from "react-icons/im";
 import { RiLogoutBoxLine } from "react-icons/ri";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { getTotalItem } from "../../../Features/AllSlice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -92,12 +92,14 @@ const NavBar = () => {
             <span className="cursor-pointer text-2xl">
               <FaRegHeart />
             </span>
-            <span
-              className="amount cursor-pointer text-2xl"
-              data-cartTotalItem={cartTotalItem}
-            >
-              <BsCart3 />
-            </span>
+            <Link to="/cart">
+              <span
+                className="amount cursor-pointer text-2xl"
+                data-cartTotalItem={cartTotalItem}
+              >
+                <BsCart3 />
+              </span>
+            </Link>
             <span
               onClick={HandleMenu}
               className="cursor-pointer rounded-full bg-red_DB4444 p-2 text-[18px] text-white_FFFFFF"
