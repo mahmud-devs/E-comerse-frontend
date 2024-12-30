@@ -13,6 +13,8 @@ import ProductDetail from "./pages/ProductDetails/Index";
 import Login from "./pages/Auth/Login/Login";
 import WishList from "./pages/WishList/Index";
 import AddToCart from "./pages/AddToCart/AddToCart";
+import SignUp from "./pages/Auth/SignUp/SignUp";
+import ContactUs from "./pages/ContactUs/ContactUs";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +28,8 @@ const router = createBrowserRouter(
         <Route path="/login" element={<Login />} />
         <Route path="/WishList" element={<WishList />} />
         <Route path="/Cart" element={<AddToCart />} />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Contact" element={<ContactUs />} />
       </Route>
     </Route>,
   ),

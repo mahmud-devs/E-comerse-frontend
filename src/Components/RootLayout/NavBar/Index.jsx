@@ -18,18 +18,22 @@ const NavBar = () => {
     {
       id: 1,
       item: "Home",
+      navigate: "Home",
     },
     {
       id: 2,
       item: "Contact",
+      navigate: "Contact",
     },
     {
       id: 3,
       item: "product",
+      navigate: "product",
     },
     {
       id: 4,
       item: "Sign Up",
+      navigate: "SignUp",
     },
   ];
   // ============== dropdown menu function ==============
@@ -55,7 +59,7 @@ const NavBar = () => {
             {navItem?.map((nav) => (
               <li key={nav.id} className="menuUnderline">
                 <NavLink
-                  to={`/${nav.item}`}
+                  to={`/${nav.navigate}`}
                   className={({ isActive, isPending }) =>
                     isPending
                       ? "font-popins text-[16px] font-normal capitalize text-greenButton_00FF66"
