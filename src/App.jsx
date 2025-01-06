@@ -16,6 +16,8 @@ import AddToCart from "./pages/AddToCart/AddToCart";
 import SignUp from "./pages/Auth/SignUp/SignUp";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import MyAccount from "./pages/MyAccount/Index";
+import About from "./pages/About/Index";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +33,8 @@ const router = createBrowserRouter(
         <Route path="/Cart" element={<AddToCart />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Contact" element={<ContactUs />} />
+        <Route path="/MyAccount" element={<MyAccount />} />
+        <Route path="/About" element={<About />} />
         <Route path="/*" element={<ErrorPage />} />
       </Route>
     </Route>,
