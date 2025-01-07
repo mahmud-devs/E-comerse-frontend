@@ -4,21 +4,46 @@ import { signUpValidationSchema } from "../../../Validation/Schema/LoginSchema";
 import { useFormik } from "formik";
 import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import { TfiBag } from "react-icons/tfi";
+import { axiosInstance } from "../../../Helpers/axios";
 const SignUp = () => {
   const [eye, setEye] = useState(false);
+  const [loading, setloading] = useState(false);
   const initialValue = {
     email: "",
     phone: "",
     firstName: "",
     password: "",
+    confirmPassword: "",
   };
+  const [confirmPassword, setconfirmPassword] = useState(false);
   const formik = useFormik({
     initialValues: initialValue,
     validationSchema: signUpValidationSchema,
-    onSubmit: (value) => {
-      console.log(value);
+    onSubmit: async (value, { resetForm }) => {
+      try {
+        if (value.password !== value.confirmPassword) {
+          setconfirmPassword(true);
+          return;
+        } else {
+          setloading(true);
+          setconfirmPassword(false);
+          const responce = await axiosInstance.post("auth/registration", {
+            firstName: value.firstName,
+            email: value.email,
+            mobile: value.phone,
+            password: value.password,
+          });
+          console.log(responce);
+        }
+        resetForm();
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setloading(false);
+      }
     },
   });
+
   return (
     <div className="mb-[110px] mt-16">
       <div className="container">
@@ -61,7 +86,9 @@ const SignUp = () => {
 
               <form
                 className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2"
-                onSubmit={formik.handleSubmit}
+                onSubmit={
+                  loading ? (e) => e.preventDefault() : formik.handleSubmit
+                }
               >
                 <div>
                   <label className="mb-2 block text-sm text-gray-600">
@@ -105,26 +132,6 @@ const SignUp = () => {
 
                 <div>
                   <label className="mb-2 block text-sm text-gray-600">
-                    Email address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="johnsnow@example.com"
-                    name="email"
-                    id="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
-                    className="mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-redHover_E07575 focus:outline-none focus:ring focus:ring-redHover_E07575 focus:ring-opacity-40"
-                  />
-                  {formik.touched.email && formik.errors.email ? (
-                    <span className="mt-4 block capitalize text-red_DB4444">
-                      {formik.errors.email}
-                    </span>
-                  ) : null}
-                </div>
-
-                <div>
-                  <label className="mb-2 block text-sm text-gray-600">
                     Password
                   </label>
                   <div className="relative w-full">
@@ -159,19 +166,75 @@ const SignUp = () => {
 
                 <div>
                   <label className="mb-2 block text-sm text-gray-600">
-                    Confirm password
+                    Email address
                   </label>
                   <input
-                    type="password"
-                    placeholder="Enter your password"
+                    type="email"
+                    placeholder="johnsnow@example.com"
+                    name="email"
+                    id="email"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
                     className="mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-redHover_E07575 focus:outline-none focus:ring focus:ring-redHover_E07575 focus:ring-opacity-40"
                   />
+                  {formik.touched.email && formik.errors.email ? (
+                    <span className="mt-4 block capitalize text-red_DB4444">
+                      {formik.errors.email}
+                    </span>
+                  ) : null}
                 </div>
 
-                <div className="flex items-end">
-                  <button className="flex w-full items-center justify-center rounded-md bg-red_DB4444 py-4 text-sm capitalize text-white duration-300 hover:bg-redHover_E07575">
-                    Sign Up
-                  </button>
+                
+
+                <div>
+                  <label className="mb-2 block text-sm text-gray-600">
+                    Confirm password
+                  </label>
+                  <div className="relative w-full">
+                    <input
+                      type={eye ? "text" : "password"}
+                      name="confirmPassword"
+                      id="confirmPassword"
+                      onChange={formik.handleChange}
+                      value={formik.values.confirmPassword}
+                      placeholder="Enter your password"
+                      className="mt-2 block w-full rounded-md border border-gray-200 bg-white px-5 py-3 text-gray-700 placeholder-gray-400 focus:border-redHover_E07575 focus:outline-none focus:ring focus:ring-redHover_E07575 focus:ring-opacity-40"
+                    />
+                    <span
+                      className="absolute right-[7%] top-1/2 -translate-y-1/2"
+                      onClick={() => setEye(!eye)}
+                    >
+                      {eye ? (
+                        <FaEyeSlash className="cursor-pointer text-xl" />
+                      ) : (
+                        <FaEye className="cursor-pointer text-xl" />
+                      )}
+                    </span>
+                  </div>
+
+                  {confirmPassword ? (
+                    <span className="mt-4 block capitalize text-red_DB4444">
+                      Password does not match
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                </div>
+
+                <div className="flex items-start">
+                  {loading ? (
+                    <button className="relative mt-[25px] flex w-full items-center justify-center rounded-md bg-blueHover_A0BCE0 py-4 text-sm capitalize text-white duration-300 hover:opacity-80">
+                      Loading
+                      <span className="absolute left-[30%] top-[23%] h-7 w-7 animate-spin rounded-full border-4 border-textBlack_000000 border-b-white_FFFFFF border-l-white_FFFFFF"></span>
+                    </button>
+                  ) : (
+                    <button
+                      type="submit"
+                      className="mt-[25px] flex w-full items-center justify-center rounded-md bg-red_DB4444 py-4 text-sm capitalize text-white duration-300 hover:bg-redHover_E07575"
+                    >
+                      Sign Up
+                    </button>
+                  )}
                 </div>
               </form>
             </div>
