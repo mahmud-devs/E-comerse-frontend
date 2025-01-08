@@ -5,9 +5,9 @@ import { useFormik } from "formik";
 import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import { TfiBag } from "react-icons/tfi";
 import { axiosInstance } from "../../../Helpers/axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const SignUp = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [eye, setEye] = useState(false);
   const [loading, setloading] = useState(false);
   const initialValue = {
@@ -42,7 +42,6 @@ const SignUp = () => {
         console.log(error);
       } finally {
         setloading(false);
-        
       }
     },
   });
@@ -187,8 +186,6 @@ const SignUp = () => {
                   ) : null}
                 </div>
 
-                
-
                 <div>
                   <label className="mb-2 block text-sm text-gray-600">
                     Confirm password
@@ -240,6 +237,17 @@ const SignUp = () => {
                   )}
                 </div>
               </form>
+              <div className="mt-12 flex items-center gap-x-4">
+                <h2 className="text-2xl font-semibold capitalize tracking-wider text-textBlack_000000">
+                  alredy have an account?
+                </h2>
+                <Link
+                  to={"/login"}
+                  className="text-2xl font-semibold capitalize tracking-wider text-red_DB4444 hover:underline"
+                >
+                  Sign in
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,10 @@ import loginImage from "../../../assets/Login/login.gif";
 import { loginValidationSchema } from "../../../Validation/Schema/LoginSchema";
 import { useFormik } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { axiosInstance } from "../../../Helpers/axios";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const [eye, setEye] = useState(false);
   const initialValue = {
     emailorphone: "",
@@ -12,16 +15,30 @@ const Login = () => {
   const formik = useFormik({
     initialValues: initialValue,
     validationSchema: loginValidationSchema,
-    onSubmit: (value) => {
-      console.log(value);
+    onSubmit: async (value) => {
+      try {
+        const loginData = await axiosInstance.post("auth/login", {
+          emailormobile: value.emailorphone,
+          password: value.Password,
+        });
+        console.log(loginData);
+      } catch (error) {
+        console.log("error from login page", error);
+      } finally {
+        navigate("/home");
+      }
     },
   });
   return (
     <div className="my-[20px]">
       <div className="container">
         <div className="flex items-center">
-          <div className="flex w-1/2 items-center justify-center ">
-            <img src={loginImage} alt={loginImage} className="w-full object-cover" />
+          <div className="flex w-1/2 items-center justify-center">
+            <img
+              src={loginImage}
+              alt={loginImage}
+              className="w-full object-cover"
+            />
           </div>
           {/* ================================== */}
           <div className="w-1/2 ps-[120px]">
@@ -43,7 +60,7 @@ const Login = () => {
                   value={formik.values.emailorphone}
                 />
                 {formik.touched.emailorphone && formik.errors.emailorphone ? (
-                  <span className="mt-4 block text-red_DB4444 ">
+                  <span className="mt-4 block text-red_DB4444">
                     {formik.errors.emailorphone}
                   </span>
                 ) : null}
@@ -71,7 +88,7 @@ const Login = () => {
                     </span>
                   </div>
                   {formik.touched.Password && formik.errors.Password ? (
-                    <span className="mt-4 block text-red_DB4444 ">
+                    <span className="mt-4 block text-red_DB4444">
                       {formik.errors.Password}
                     </span>
                   ) : null}

@@ -8,6 +8,8 @@ import { RiLogoutBoxLine } from "react-icons/ri";
 import { Link, NavLink } from "react-router-dom";
 import { getTotalItem } from "../../../Features/AllSlice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { axiosInstance } from "../../../Helpers/axios";
 
 const NavBar = () => {
   // ========== all states =============
@@ -45,6 +47,16 @@ const NavBar = () => {
     dispatch(getTotalItem());
   }, [localStorage.getItem("addToCart")]);
 
+  // =============== handleLogout function ===============
+
+  const handleLogout = async () => {
+    try {
+      const logoutData = await axiosInstance.get("/auth/logout");
+      console.log(logoutData);
+    } catch (error) {
+      console.log("error from logout", error);
+    }
+  };
   return (
     <div className="border-b-[1.5px] border-[rgba(0,0,0,0.3)] pb-3 pt-10">
       <div className="container flex items-center justify-between">
@@ -138,7 +150,10 @@ const NavBar = () => {
                   <h3 className="text-4 font-popins">My Reviews</h3>
                 </div>
 
-                <div className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3">
+                <div
+                  onClick={handleLogout}
+                  className="dropDown flex items-center gap-x-3 py-2 ps-8 text-white_FAFAFA transition-all hover:py-3"
+                >
                   <span className="text-2xl">
                     <RiLogoutBoxLine />
                   </span>
