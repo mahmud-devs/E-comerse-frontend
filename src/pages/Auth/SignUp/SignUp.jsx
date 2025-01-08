@@ -5,7 +5,9 @@ import { useFormik } from "formik";
 import { FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import { TfiBag } from "react-icons/tfi";
 import { axiosInstance } from "../../../Helpers/axios";
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
+  const navigate = useNavigate()
   const [eye, setEye] = useState(false);
   const [loading, setloading] = useState(false);
   const initialValue = {
@@ -40,6 +42,7 @@ const SignUp = () => {
         console.log(error);
       } finally {
         setloading(false);
+        
       }
     },
   });
