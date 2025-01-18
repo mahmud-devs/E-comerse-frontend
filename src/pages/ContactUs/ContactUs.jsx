@@ -3,6 +3,7 @@ import BreadCrum from "../../Components/CommonComponents/BreadCrum";
 import { useFormik } from "formik";
 import { IoCallOutline } from "react-icons/io5";
 import { contactValidationSchema } from "../../Validation/Schema/LoginSchema";
+import { axiosInstance } from "../../Helpers/axios";
 
 const ContactUs = () => {
   const initialValue = {
@@ -14,8 +15,15 @@ const ContactUs = () => {
   const formik = useFormik({
     initialValues: initialValue,
     validationSchema: contactValidationSchema,
-    onSubmit: (value) => {
-      console.log(value);
+    onSubmit: async (value, action) => {
+      try {
+        const response = await axiosInstance.post("/contact", value);
+        console.log("response from contact page", response);
+      } catch (error) {
+        console.error("error from contact page", error);
+      } finally {
+        action.resetForm();
+      }
     },
   });
   return (
