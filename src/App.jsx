@@ -19,6 +19,9 @@ import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import MyAccount from "./pages/MyAccount/Index";
 import About from "./pages/About/Index";
 import OtpVerify from "./pages/OTPVerify/OtpVerify";
+import Success from "./pages/success/Index";
+import Cancel from "./pages/cancel/Index";
+import Failed from "./pages/Failed/Index";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +41,9 @@ const router = createBrowserRouter(
         <Route path="/About" element={<About />} />
         <Route path="/OtpVerify/:email" element={<OtpVerify />} />
         <Route path="/*" element={<ErrorPage />} />
+        <Route path="/Success" element={<Success />} />
+        <Route path="/Cancel" element={<Cancel />} />
+        <Route path="/Failed" element={<Failed />} />
       </Route>
     </Route>,
   ),
