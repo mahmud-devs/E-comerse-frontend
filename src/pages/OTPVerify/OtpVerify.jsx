@@ -43,7 +43,12 @@ const OtpVerify = () => {
         emailormobile: parms.email,
         otp: otp,
       });
-      console.log(otpverify);
+      //
+      if (otpverify?.data?.success === true) {
+        navigate(`/login`);
+      } else {
+        console.log(otpverify);
+      }
     } catch (error) {
       console.error("error from optverify page", error);
     } finally {

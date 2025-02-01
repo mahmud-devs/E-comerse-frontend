@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Stars from "../CommonComponents/Stars";
 import { calculateDiscount } from "../../Helpers/calculateDiscount";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { TbTruckDelivery } from "react-icons/tb";
 import { FaArrowsSpin, FaTruckFast } from "react-icons/fa6";
+import { useParams } from "react-router-dom";
+import { useAddToCartMutation } from "../../Features/Api/ExcluciveApi";
+
 const ProductItemInfo = ({ itemData }) => {
   //   console.log(itemData);
+  const { id } = useParams();
+  const [cartQuantity, setcartQuantity] = useState(1);
   const size = [
     { id: 1, size: "XS" },
     { id: 2, size: "S" },
@@ -13,6 +18,32 @@ const ProductItemInfo = ({ itemData }) => {
     { id: 4, size: "L" },
     { id: 5, size: "XL" },
   ];
+
+  // ================= cart quantity increment
+  const handleIncrement = () => {
+    setcartQuantity((prev) => prev + 1);
+  };
+  // ================= cart quantity decrement
+  const handleDecrement = () => {
+    if (cartQuantity > 1) {
+      setcartQuantity((prev) => prev - 1);
+    }
+  };
+  // =========== useAddToCartMutation call ======
+
+  const [AddToCart, { isLoading, isError, data }] = useAddToCartMutation();
+
+  const handleAddToCart = async () => {
+    try {
+      const responce = await AddToCart({
+        product: id,
+        quantity: cartQuantity,
+      });
+      console.log(responce);
+    } catch (error) {
+      console.error("error from add to cart page", error);
+    }
+  };
   return (
     <div>
       <div className="border-b border-black_363738 pb-6">
@@ -80,20 +111,30 @@ const ProductItemInfo = ({ itemData }) => {
       </div>
 
       {/* ============================================== */}
+
       <div className="mt-10 flex items-center gap-x-4">
         <div className="flex items-center">
-          <span className="text-text-textBlack_000000 cursor-pointer rounded-l-lg border-2 border-black_363738 px-4 py-2 font-popins text-[20px] hover:bg-red_DB4444 hover:text-white_FFFFFF">
+          <span
+            onClick={handleDecrement}
+            className="text-text-textBlack_000000 cursor-pointer rounded-l-lg border-2 border-black_363738 px-4 py-2 font-popins text-[20px] hover:bg-red_DB4444 hover:text-white_FFFFFF"
+          >
             -
           </span>
           <span className="text-text-textBlack_000000 cursor-pointer border-2 border-l-0 border-black_363738 px-6 py-2 font-popins text-[20px] hover:bg-red_DB4444 hover:text-white_FFFFFF">
-            2
+            {cartQuantity}
           </span>
-          <span className="text-text-textBlack_000000 cursor-pointer rounded-r-lg border-2 border-l-0 border-black_363738 px-4 py-2 font-popins text-[20px] hover:bg-red_DB4444 hover:text-white_FFFFFF">
+          <span
+            onClick={handleIncrement}
+            className="text-text-textBlack_000000 cursor-pointer rounded-r-lg border-2 border-l-0 border-black_363738 px-4 py-2 font-popins text-[20px] hover:bg-red_DB4444 hover:text-white_FFFFFF"
+          >
             +
           </span>
         </div>
 
-        <button className="rounded-[5px] border-none bg-red_DB4444 px-[48px] py-[12px] font-popins text-[16px] font-medium text-white_FFFFFF">
+        <button
+          onClick={handleAddToCart}
+          className="rounded-[5px] border-none bg-red_DB4444 px-[48px] py-[12px] font-popins text-[16px] font-medium text-white_FFFFFF"
+        >
           Buy Now
         </button>
 

@@ -10,28 +10,74 @@ import {
 } from "../../Features/AllSlice/cartSlice";
 import { ImCross } from "react-icons/im";
 import { Link } from "react-router-dom";
+import {
+  useGetuserCartItemQuery,
+  useCartIncrementMutation,
+  useCartDecrementMutation,
+  useDeleteCartItemMutation,
+} from "../../Features/Api/ExcluciveApi";
 
 const AddToCart = () => {
-  const dispatch = useDispatch();
-  // const cartItem = useSelector((state) => state?.cart?.value);
-  const { caerTotalPrice, cartTotalItem, value } = useSelector(
-    (state) => state?.cart,
-  );
-  console.log(caerTotalPrice, cartTotalItem);
+  // ============== get cart data ==================
+  const { isLoading, isError, data } = useGetuserCartItemQuery();
+  const getCartItem = data?.data;
 
-  const handleRemoveCart = (item) => {
-    dispatch(removecart(item));
+  // ============== cart quantity increment ===========
+
+  const [CartIncrement] = useCartIncrementMutation();
+
+  const increaseItem = async (item) => {
+    try {
+      const cartQuanrityIncrement = await CartIncrement(item._id);
+    } catch (error) {
+      console.error("error from add to card increment", error);
+    }
   };
-  const increaseItem = (item) => {
-    dispatch(increment(item));
-  };
-  const decreaseItem = (item) => {
-    dispatch(decrement(item));
+  // ============== cart quantity increment ===========
+
+  const [CartDecrement] = useCartDecrementMutation();
+
+  const decreaseItem = async (item) => {
+    try {
+      const cartQuanrityIncrement = await CartDecrement(item._id);
+    } catch (error) {
+      console.error("error from add to card increment", error);
+    }
   };
 
-  useEffect(() => {
-    dispatch(getTotalItem());
-  }, [localStorage.getItem("addToCart")]);
+  // =================== delete cart item ========================
+
+  const [DeleteCartItem] = useDeleteCartItemMutation();
+  const handleRemoveCart = async (item) => {
+    try {
+      const deleteCartItem = await DeleteCartItem(item._id);
+      console.log(deleteCartItem);
+    } catch (error) {
+      console.error("error from delete cart item ", error);
+    }
+  };
+
+  // ============================================================================================================
+
+  // const dispatch = useDispatch();
+  // // const cartItem = useSelector((state) => state?.cart?.value);
+  // const { caerTotalPrice, cartTotalItem, value } = useSelector(
+  //   (state) => state?.cart,
+  // );
+
+  // const handleRemoveCart = (item) => {
+  //   dispatch(removecart(item));
+  // };
+  // const increaseItem = (item) => {
+  //   dispatch(increment(item));
+  // };
+  // const decreaseItem = (item) => {
+  //   dispatch(decrement(item));
+  // };
+
+  // useEffect(() => {
+  //   dispatch(getTotalItem());
+  // }, [localStorage.getItem("addToCart")]);
   return (
     <div className="my-20">
       <div className="container">
@@ -65,14 +111,14 @@ const AddToCart = () => {
         {/* ================================================ */}
 
         <div className="customScroll h-[500px] w-full overflow-y-scroll">
-          {value?.map((item) => (
+          {getCartItem?.cartITem?.map((item) => (
             <div className="mb-10" key={item}>
               <div className="flex justify-between rounded shadow-md">
                 <div className="flex flex-1 justify-start py-6">
                   <div className="relative flex items-center gap-x-5 pl-10">
                     <img
-                      src={item?.image[0]}
-                      alt={item?.image[0]}
+                      src={item?.product.image[0]}
+                      alt={item?.product.image[0]}
                       className="h-[54px] w-[54px] object-contain"
                     />
                     <span
@@ -83,21 +129,21 @@ const AddToCart = () => {
                     </span>
 
                     <h1 className="font-popins text-[16px] font-normal text-textBlack_000000">
-                      {item?.name}
+                      {item?.product?.name}
                     </h1>
                   </div>
                 </div>
 
                 <div className="flex flex-1 items-center justify-center py-6">
                   <h1 className="font-popins text-[20px] font-normal text-textBlack_000000">
-                    ${item?.price}
+                    ${item?.product?.price}
                   </h1>
                 </div>
 
                 <div className="flex flex-1 justify-center py-6">
                   <div className="flex w-[100px] items-center justify-between rounded border border-gray-400 px-4">
                     <h3 className="w-[35px] text-center font-popins text-[20px] font-normal text-textBlack_000000">
-                      {item?.cartQuantity}
+                      {item?.quantity}
                     </h3>
                     <div className="flex flex-col items-center justify-center gap-y-1">
                       <span
@@ -119,7 +165,7 @@ const AddToCart = () => {
 
                 <div className="flex flex-1 items-center justify-end py-6">
                   <h1 className="pr-10 font-popins text-[20px] font-normal text-textBlack_000000">
-                    ${item?.price * item?.cartQuantity}
+                    ${item?.product?.price * item?.quantity}
                   </h1>
                 </div>
               </div>
@@ -172,14 +218,14 @@ const AddToCart = () => {
               <div className="text-[16px relative inline-flex w-full items-center justify-between rounded-t-lg border-b border-gray-200 px-4 py-2 font-popins font-normal text-textBlack_000000 hover:bg-gray-100">
                 <button type="button">Quantity:</button>
                 <span className="inline-block font-popins text-[16px] font-normal text-textBlack_000000">
-                  {cartTotalItem}
+                  {getCartItem?.totalcartitem}
                 </span>
               </div>
 
               <div className="text-[16px relative inline-flex w-full items-center justify-between rounded-t-lg px-4 py-2 font-popins font-normal text-textBlack_000000 hover:bg-gray-100">
                 <button type="button">Total:</button>
                 <span className="inline-block font-popins text-[16px] font-normal text-textBlack_000000">
-                  {caerTotalPrice}
+                  {getCartItem?.totalamount}
                 </span>
               </div>
             </div>

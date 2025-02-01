@@ -35,7 +35,9 @@ const SignUp = () => {
             mobile: value.phone,
             password: value.password,
           });
-          console.log(responce);
+          if (responce?.data.success === true) {
+            navigate(`/OtpVerify/${value.email}`);
+          }
         }
         resetForm();
       } catch (error) {
