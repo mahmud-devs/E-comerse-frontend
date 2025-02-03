@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { axiosInstance } from "../../../Helpers/axios";
 import { useNavigate } from "react-router-dom";
+import { successToast, errorToast } from "../../../Helpers/toast";
 const Login = () => {
   const navigate = useNavigate();
   const [eye, setEye] = useState(false);
@@ -21,11 +22,15 @@ const Login = () => {
           emailormobile: value.emailorphone,
           password: value.Password,
         });
-        console.log(loginData);
+        if (loginData?.data?.success === true) {
+          successToast("Login Successful");
+          navigate("/home");
+        } else {
+          errorToast("Failed to login");
+        }
       } catch (error) {
         console.log("error from login page", error);
-      } finally {
-        navigate("/home");
+        errorToast("Failed to login");
       }
     },
   });
@@ -55,7 +60,7 @@ const Login = () => {
                   name="emailorphone"
                   id="emailorphone"
                   placeholder="Email or Phone Number"
-                  className="w-[70%] border-b-2 border-b-gray-200 py-3"
+                  className="w-[70%] border-b-2 border-b-gray-200 px-5 py-3"
                   onChange={formik.handleChange}
                   value={formik.values.emailorphone}
                 />
@@ -72,7 +77,7 @@ const Login = () => {
                       name="Password"
                       id="Password"
                       placeholder="Password"
-                      className="w-[70%] border-b-2 border-b-gray-200 py-3"
+                      className="w-[70%] border-b-2 border-b-gray-200 px-5 py-3"
                       onChange={formik.handleChange}
                       value={formik.values.Password}
                     />

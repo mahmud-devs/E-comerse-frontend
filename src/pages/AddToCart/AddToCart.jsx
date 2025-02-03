@@ -16,6 +16,7 @@ import {
   useCartDecrementMutation,
   useDeleteCartItemMutation,
 } from "../../Features/Api/ExcluciveApi";
+import { successToast, warningToast } from "../../Helpers/toast";
 
 const AddToCart = () => {
   // ============== get cart data ==================
@@ -29,17 +30,22 @@ const AddToCart = () => {
   const increaseItem = async (item) => {
     try {
       const cartQuanrityIncrement = await CartIncrement(item._id);
+
+      successToast("Item quantity increased Successfully");
+
+      console.log("yvuyv");
     } catch (error) {
       console.error("error from add to card increment", error);
     }
   };
-  // ============== cart quantity increment ===========
+  // ============== cart quantity decrement ===========
 
   const [CartDecrement] = useCartDecrementMutation();
 
   const decreaseItem = async (item) => {
     try {
       const cartQuanrityIncrement = await CartDecrement(item._id);
+      warningToast("Item quantity decreased Successfully");
     } catch (error) {
       console.error("error from add to card increment", error);
     }
@@ -230,9 +236,9 @@ const AddToCart = () => {
               </div>
             </div>
             <div className="mb-8 mt-4 flex w-full justify-center">
-              <button className="rounded bg-red_DB4444 px-[48px] py-[12px] font-popins text-[18px] font-medium text-white_FFFFFF transition-all duration-200 hover:opacity-75">
+              <Link to={"/CheakOut"} className="rounded bg-red_DB4444 px-[48px] py-[12px] font-popins text-[18px] font-medium text-white_FFFFFF transition-all duration-200 hover:opacity-75">
                 Procees to checkout
-              </button>
+              </Link>
             </div>
           </div>
         </div>

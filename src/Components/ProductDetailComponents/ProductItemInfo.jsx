@@ -6,6 +6,7 @@ import { TbTruckDelivery } from "react-icons/tb";
 import { FaArrowsSpin, FaTruckFast } from "react-icons/fa6";
 import { useParams } from "react-router-dom";
 import { useAddToCartMutation } from "../../Features/Api/ExcluciveApi";
+import { successToast, errorToast } from "../../Helpers/toast";
 
 const ProductItemInfo = ({ itemData }) => {
   //   console.log(itemData);
@@ -39,7 +40,11 @@ const ProductItemInfo = ({ itemData }) => {
         product: id,
         quantity: cartQuantity,
       });
-      console.log(responce);
+      if (responce?.data?.success === true) {
+        successToast("Item Successfully added to cart");
+      } else {
+        errorToast("Failed to add item to cart");
+      }
     } catch (error) {
       console.error("error from add to cart page", error);
     }

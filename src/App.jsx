@@ -22,6 +22,7 @@ import OtpVerify from "./pages/OTPVerify/OtpVerify";
 import Success from "./pages/success/Index";
 import Cancel from "./pages/cancel/Index";
 import Failed from "./pages/Failed/Index";
+import CheakOut from "./pages/CheakOut/Index";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ const router = createBrowserRouter(
         <Route path="/Success" element={<Success />} />
         <Route path="/Cancel" element={<Cancel />} />
         <Route path="/Failed" element={<Failed />} />
+        <Route path="/CheakOut" element={<CheakOut />} />
       </Route>
     </Route>,
   ),
