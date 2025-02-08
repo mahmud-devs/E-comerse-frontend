@@ -10,6 +10,7 @@ import { getTotalItem } from "../../../Features/AllSlice/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { axiosInstance } from "../../../Helpers/axios";
+import { useGetuserCartItemQuery } from "../../../Features/Api/ExcluciveApi";
 
 const NavBar = () => {
   // ========== all states =============
@@ -43,9 +44,13 @@ const NavBar = () => {
     setallMenu(!allMenu);
   };
 
-  useEffect(() => {
-    dispatch(getTotalItem());
-  }, [localStorage.getItem("addToCart")]);
+  // ============== get cart data ==================
+  const { isLoading, isError, data } = useGetuserCartItemQuery();
+  const getCartItem = data?.data;
+
+  // useEffect(() => {
+  //   dispatch(getTotalItem());
+  // }, [localStorage.getItem("addToCart")]);
 
   // =============== handleLogout function ===============
 
@@ -107,7 +112,7 @@ const NavBar = () => {
             <Link to="/cart">
               <span
                 className="amount cursor-pointer text-2xl"
-                data-cartTotalItem={cartTotalItem}
+                data-cartTotalItem={getCartItem?.totalcartitem}
               >
                 <BsCart3 />
               </span>

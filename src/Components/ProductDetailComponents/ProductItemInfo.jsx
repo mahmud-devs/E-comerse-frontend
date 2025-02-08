@@ -30,7 +30,7 @@ const ProductItemInfo = ({ itemData }) => {
       setcartQuantity((prev) => prev - 1);
     }
   };
-  // =========== useAddToCartMutation call ======
+  // ===========add to cart function useAddToCartMutation call ======
 
   const [AddToCart, { isLoading, isError, data }] = useAddToCartMutation();
 
@@ -49,6 +49,8 @@ const ProductItemInfo = ({ itemData }) => {
       console.error("error from add to cart page", error);
     }
   };
+
+
   return (
     <div>
       <div className="border-b border-black_363738 pb-6">

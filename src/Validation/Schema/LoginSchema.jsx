@@ -52,3 +52,24 @@ export const contactValidationSchema = Yup.object({
     .matches(bdPhoneNumberRegex, "Invalid Phone Number !!"),
   message: Yup.string().required("Message is Required !!"),
 });
+
+// =============== checkOUt validation =============
+
+export const checkOutValidationSchema = Yup.object().shape({
+  userinfo: Yup.object().shape({
+    firstName: Yup.string().required("First name is required"),
+    email: Yup.string()
+      .matches(emailFormat, "Invalid email format")
+      .required("Email is required"),
+    mobile: Yup.string()
+      .matches(/^(?:\+?88)?01[3-9]\d{8}$/, "Invalid mobile number")
+      .required("Mobile number is required"),
+    address1: Yup.string().required("Address 1 is required"),
+    address2: Yup.string().required("Address 2 is required"),
+    town: Yup.string().required("Town is required"),
+    district: Yup.string().required("District is required"),
+    postalcode: Yup.string()
+      .matches(/^\d{5,6}$/, "Invalid postal code")
+      .required("Postal code is required"),
+  }),
+});

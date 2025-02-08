@@ -6,7 +6,8 @@ import Stars from "./Stars";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Features/AllSlice/cartSlice";
-
+import { useAddToCartMutation } from "../../Features/Api/ExcluciveApi";
+import { errorToast, successToast } from "../../Helpers/toast";
 
 const ProductCard = ({ itemData, listStyle = false }) => {
   const discountPrice = calculateDiscount(
@@ -15,10 +16,30 @@ const ProductCard = ({ itemData, listStyle = false }) => {
   ).toFixed(2);
   const dispatch = useDispatch();
 
-  const handleAddToCart = (item) => {
-    // console.log(item);
-    dispatch(addToCart(item));
+  // ===========add to cart function useAddToCartMutation call ======
+
+  const [AddToCart, { isLoading, isError, data }] = useAddToCartMutation();
+
+  const handleAddToCart = async (itemData) => {
+    try {
+      const responce = await AddToCart({
+        product: itemData._id,
+        quantity: 1,
+      });
+      if (responce?.data?.success === true) {
+        successToast("Item Successfully added to cart");
+      } else {
+        errorToast("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("error from add to cart page", error);
+    }
   };
+
+  // const handleAddToCart = (item) => {
+  //   // console.log(item);
+  //   dispatch(addToCart(item));
+  // };
 
   return (
     <div className={listStyle ? "mb-[60px] w-[100%]" : "mb-[60px] w-[250px]"}>

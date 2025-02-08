@@ -23,6 +23,16 @@ const AddToCart = () => {
   const { isLoading, isError, data } = useGetuserCartItemQuery();
   const getCartItem = data?.data;
 
+  // ================= set user daata in local storage =========
+
+  const userData = {
+    firstName: getCartItem?.cartITem[0]?.user?.firstName,
+    email: getCartItem?.cartITem[0]?.user?.email,
+    mobile: getCartItem?.cartITem[0]?.user?.mobile,
+  };
+  localStorage.setItem("user", JSON.stringify(userData));
+
+  
   // ============== cart quantity increment ===========
 
   const [CartIncrement] = useCartIncrementMutation();
@@ -236,7 +246,10 @@ const AddToCart = () => {
               </div>
             </div>
             <div className="mb-8 mt-4 flex w-full justify-center">
-              <Link to={"/CheakOut"} className="rounded bg-red_DB4444 px-[48px] py-[12px] font-popins text-[18px] font-medium text-white_FFFFFF transition-all duration-200 hover:opacity-75">
+              <Link
+                to={"/CheakOut"}
+                className="rounded bg-red_DB4444 px-[48px] py-[12px] font-popins text-[18px] font-medium text-white_FFFFFF transition-all duration-200 hover:opacity-75"
+              >
                 Procees to checkout
               </Link>
             </div>
