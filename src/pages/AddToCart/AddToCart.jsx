@@ -32,7 +32,6 @@ const AddToCart = () => {
   };
   localStorage.setItem("user", JSON.stringify(userData));
 
-  
   // ============== cart quantity increment ===========
 
   const [CartIncrement] = useCartIncrementMutation();
@@ -67,7 +66,10 @@ const AddToCart = () => {
   const handleRemoveCart = async (item) => {
     try {
       const deleteCartItem = await DeleteCartItem(item._id);
-      console.log(deleteCartItem);
+      // console.log(deleteCartItem);
+      if (deleteCartItem?.data?.success === true) {
+        warningToast("Item removed from cart");
+      }
     } catch (error) {
       console.error("error from delete cart item ", error);
     }
