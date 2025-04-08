@@ -20,7 +20,7 @@ const ProductDetail = () => {
   const params = useParams();
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 3,
@@ -29,11 +29,11 @@ const ProductDetail = () => {
 
   // ================ get single product =================
   const { data, isLoading, error } = useGetSingleProductQuery(params?.id);
-  // console.log(data?.data);
+  console.log(data?.data);
 
   //   ============ get single category from product ===============
-  const categoryData = useGetSingleCategoryQuery(data?.data?.category?._id);
-  // console.log("category", categoryData?.data?.data?.product);
+  const categoryData = useGetSingleCategoryQuery(data?.data?.category[0]?._id);
+  console.log("category", categoryData);
 
   return (
     <div className="my-20">
@@ -54,7 +54,7 @@ const ProductDetail = () => {
         )}
 
         {/* ================================ */}
-        <div className="mb-[140px] mt-[140px]">
+        <div className="mb-[40px] mt-[140px]">
           <Heading title={"Related Item"} description={false} />
           <div>
             {isLoading ? (
